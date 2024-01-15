@@ -42,6 +42,24 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isObscure = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late FocusNode _emailFocusNode;
+  late FocusNode _passwordFocusNode;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+  }
+
+
+  @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,6 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextFormField(
                             controller: _emailController,
+                          focusNode: _emailFocusNode,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -207,6 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(height: height * 0.02),
                           TextFormField(
                             controller: _passwordController,
+                            focusNode: _passwordFocusNode,
                             obscureText: isObscure,
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(
