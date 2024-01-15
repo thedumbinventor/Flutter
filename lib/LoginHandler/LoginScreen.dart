@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qmsadminflutter/app_colors.dart';
 
+import 'dashboard.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key});
 
@@ -10,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
     )
         : Container(); // Empty container if width is not greater than 800
 
-    Widget rememberForgotSection = width < 800
+    Widget rememberForgotSection = width < 880
         ? Column(
       children: [
         Row(
@@ -113,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: height * 0.34),
             Expanded(
               child: Container(
-                width: width > 800 ? width * 0.3 : width * 0.8,
+                width: width > 880 ? width * 0.3 : width * 0.8,
                 margin: EdgeInsets.symmetric(horizontal: height * 0.12),
                 color: Colors.white54,
                 child: Column(
@@ -171,20 +174,31 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(height: height * 0.02),
-                          TextFormField(
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                ),
-                              ),
-                              hintText: 'Enter Your Password',
-                            ),
-                          ),
+          TextFormField(
+            obscureText: isObscure,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                borderSide: BorderSide(
+                  width: 2,
+                ),
+              ),
+              hintText: 'Enter Your Password',
+              suffixIcon: IconButton(
+                icon: Icon(
+                  isObscure ? Icons.visibility : Icons.visibility_off,
+                  color: AppColors.textColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    isObscure = !isObscure;
+                  });
+                },
+              ),
+            ),
+          ),
                           SizedBox(height: height * 0.02),
                           rememberForgotSection,
                           SizedBox(height: height * 0.05),
@@ -193,6 +207,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: height * 0.07,
                             child: ElevatedButton(
                               onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Dashboard()),
+                                );
                                 // Handle button click
                               },
                               style: ElevatedButton.styleFrom(

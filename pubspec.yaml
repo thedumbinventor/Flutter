@@ -90,3 +90,16 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flavor_dimensions:
+  - environment
+
+flavors:
+  development:
+    environment: development
+    # Add other configuration for development flavor
+  staging:
+    environment: staging
+    # Add other configuration for staging flavor
+  production:
+    environment: production
+    # Add other configuration for production flavor
