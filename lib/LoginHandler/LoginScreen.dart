@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qmsadminflutter/app_colors.dart';
 
 import 'dashboard.dart';
@@ -10,9 +11,37 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+String? validateEmail(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter your email address';
+  }
+  // Use a regular expression to check if the entered email is valid
+  if (!RegExp(
+      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+      .hasMatch(value)) {
+    return 'Please enter a valid email address';
+  }
+  return null;
+}
+
+void showToast(String message) {
+  Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.CENTER,
+    timeInSecForIosWeb: 3,
+    backgroundColor: Colors.red,
+    textColor: Colors.white,
+    fontSize: 86.0,
+  );
+}
+void authenticate(){}
+
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
   bool isObscure = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextFormField(
+                            controller: _emailController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -172,33 +202,37 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               hintText: 'Enter Your Mail',
                             ),
+                            validator: validateEmail,
                           ),
                           SizedBox(height: height * 0.02),
-          TextFormField(
-            obscureText: isObscure,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-                borderSide: BorderSide(
-                  width: 2,
-                ),
-              ),
-              hintText: 'Enter Your Password',
-              suffixIcon: IconButton(
-                icon: Icon(
-                  isObscure ? Icons.visibility : Icons.visibility_off,
-                  color: AppColors.textColor,
-                ),
-                onPressed: () {
-                  setState(() {
-                    isObscure = !isObscure;
-                  });
-                },
-              ),
-            ),
-          ),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: isObscure,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                ),
+                              ),
+                              hintText: 'Enter Your Password',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  isObscure
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: AppColors.textColor,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isObscure = !isObscure;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
                           SizedBox(height: height * 0.02),
                           rememberForgotSection,
                           SizedBox(height: height * 0.05),
@@ -207,11 +241,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: height * 0.07,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => Dashboard()),
-                                );
-                                // Handle button click
+                                if (_emailController.text.isNotEmpty &&
+                                    _passwordController.text.isNotEmpty &&
+                                    validateEmail(_emailController.text) == null) {
+                                  // Email is not empty and valid
+                                  // Perform your login logic here
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Dashboard(),
+                                    ),
+                                  );
+                                } else {
+                                  // Show an error message or handle the invalid input
+                                  showToast('Invalid input. Please check your email.');
+                                  print(
+                                      'Invalid input. Please check your email.');
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: AppColors.buttonColor,

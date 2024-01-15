@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
@@ -27,7 +27,7 @@ jobs:
         run: flutter build web --release
 
   create-release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
 
     steps:
@@ -43,7 +43,7 @@ jobs:
           prerelease: false
 
   upload-artifact:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
 
     steps:
@@ -54,7 +54,7 @@ jobs:
           path: build/web
 
   download-artifact:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: upload-artifact
 
     steps:
