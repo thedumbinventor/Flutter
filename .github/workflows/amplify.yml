@@ -19,18 +19,13 @@ jobs:
           node-version: '14'
 
       - name: Install Amplify CLI
-        run: npm install -g @aws-amplify/cli
+        run: choco install -g @aws-amplify/cli
 
       - name: Configure AWS credentials
         run: |
           aws configure set aws_access_key_id AKIAQ3E6XAIHXMY46QVX
           aws configure set aws_secret_access_key 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
           aws configure set region ap-south-1
-
-      - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build # Modify this command based on your build script
 
       - name: Amplify Push
         run: amplify push --yes
