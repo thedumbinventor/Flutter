@@ -23,12 +23,9 @@ jobs:
 
       - name: Configure AWS credentials
         run: |
-          aws_access_key_id = "AKIAQ3E6XAIHXMY46QVX"
-          aws_secret_access_key = "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"
-          " > ~/.aws/credentials
-
-      - name: Set AWS region
-        run: amplify configure set region ap-south-1
+          aws configure set aws_access_key_id AKIAQ3E6XAIHXMY46QVX
+          aws configure set aws_secret_access_key 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
+          aws configure set region ap-south-1
 
       - name: Install dependencies and build
         run: |
