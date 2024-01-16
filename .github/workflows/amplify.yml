@@ -53,7 +53,7 @@ jobs:
             cd build/web
 
       - name: Amplify Push
-        run: amplify push --yes
+        run: aws amplify publish --appId d19yevjv3ahi39 --branch-name master --source artifact/
 
       - name: Amplify Publish
         run: amplify publish --yes
