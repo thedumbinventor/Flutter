@@ -38,18 +38,9 @@ jobs:
       - name: Move Flutter Web Build to Artifact
         run: |
                 # Create a folder for Flutter web build
-                mkdir -p artifact/web
-                cp -R build/web/* artifact/flutter/
+                mkdir -p artifact
+                cp -R build/web/* artifact/
 
-      - name: Build Project and Create Artifact
-        run: |
-          # Add your project build commands here
-          npm install
-          npm run build
-          
-          # Create an artifact folder and copy the contents
-          mkdir -p artifact
-          cp -R build/web/* artifact/
 
       - name: Display Branch and App ID
         run: |
