@@ -51,7 +51,8 @@ jobs:
           aws configure set aws_secret_access_key fwzsljTaLsk8AcOcOECcbQR8O4WLedrojoJtGkkA
           aws configure set region ap-south-1
           npm install -g @aws-amplify/cli
-          Set-Content -Path "amplify-config.json" -Value "`{"appId`": `"$APP_ID`", `"branch`": `"$BRANCH_NAME`"}`"
+          $content = '{ "appId": "' + $env:APP_ID + '", "branch": "' + $env:BRANCH_NAME + '" }'
+          $content | Out-File -FilePath amplify-config.json
           amplify init --config amplify-config.json --yes
           amplify publish
         
