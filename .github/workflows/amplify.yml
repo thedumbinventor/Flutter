@@ -20,9 +20,6 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install Amplify CLI
-        run: npm i aws-amplify
-
       - name: Configure AWS credentials
         run: |
           aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
@@ -47,13 +44,14 @@ jobs:
           echo "Branch Name: master"
           echo "Amplify App ID: d19yevjv3ahi39"
 
-      - name: Deploy to Amplify
+      - name: Install Amplify CLI
         run: |
-            # Navigate to the build/web directory
-            cd build/web
-            # Deploy to Amplify
-            amplify init --appId $APP_ID --branch $BRANCH_NAME
-            amplify publish
+          npm install -g @aws-amplify/cli
+          amplify configure
+          amplify init --appId $APP_ID --branch $BRANCH_NAME
+          amplify publish
+        
+
 
 #      - name: Amplify Push
 #        run: amplify publish --appId d19yevjv3ahi39 --branch-name master --source artifact/
