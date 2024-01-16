@@ -20,11 +20,11 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Configure AWS credentials
-        run: |
-          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
-          aws configure set aws_secret_access_key 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
-          aws configure set region ap-south-1
+#      - name: Configure AWS credentials
+#        run: |
+#          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
+#          aws configure set aws_secret_access_key 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
+#          aws configure set region ap-south-1
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -46,9 +46,12 @@ jobs:
 
       - name: Install Amplify CLI
         run: |
+          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
+          aws configure set aws_secret_access_key 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
+          aws configure set region ap-south-1
           npm install -g @aws-amplify/cli
-          amplify configure
-          amplify init --appId $APP_ID --branch $BRANCH_NAME
+          echo -e "appId: $APP_ID\nbranch: $BRANCH_NAME" > amplify-config.json
+          amplify init --config amplify-config.json --yes
           amplify publish
         
 
