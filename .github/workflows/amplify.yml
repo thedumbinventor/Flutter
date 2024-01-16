@@ -18,6 +18,10 @@ jobs:
         with:
           flutter-version: '3.13.9'  # Adjust to the Flutter version you're using
 
+      - name: Update Flutter and Dart SDK
+        run: |
+            flutter upgrade
+            flutter pub upgrade
 #      - name: Add cupertino_icons to dependencies
 #        run: flutter pub add cupertino_icons
 #             flutter pub add get
