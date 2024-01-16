@@ -51,9 +51,9 @@ jobs:
         run: |
             # Navigate to the build/web directory
             cd build/web
+            # Deploy to Amplify
+            amplify init --appId $APP_ID --branch $BRANCH_NAME
+            amplify publish
 
-      - name: Amplify Push
-        run: amplify publish --appId d19yevjv3ahi39 --branch-name master --source artifact/
-
-      - name: Amplify Publish
-        run: amplify publish --yes
+#      - name: Amplify Push
+#        run: amplify publish --appId d19yevjv3ahi39 --branch-name master --source artifact/
