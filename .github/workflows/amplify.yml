@@ -32,7 +32,7 @@ jobs:
 
 
       - name: Build Flutter Web --release
-        run: flutter build web --release
+        run: flutter build web  --release -t lib/main_prod.dart
 
   deploy:
     runs-on: ubuntu-latest
