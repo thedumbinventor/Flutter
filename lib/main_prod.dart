@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-
 import 'LoginHandler/LoginScreen.dart';
-
+import 'app_config.dart';
 
 void main() {
-  runApp(const MyApp());
+  var configuredApp = new AppConfig(
+    appName: 'Build flavors',
+    flavorName: 'production',
+    child: new MyApp(),
+  );
+  runApp(configuredApp);
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,4 +20,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

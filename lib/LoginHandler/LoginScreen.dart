@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qmsadminflutter/app_colors.dart';
 
+import '../app_config.dart';
 import 'dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +16,6 @@ String? validateEmail(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter your email address';
   }
-  // Use a regular expression to check if the entered email is valid
   if (!RegExp(
       r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
       .hasMatch(value)) {
@@ -63,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var config = AppConfig.of(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -85,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     )
         : Container(); // Empty container if width is not greater than 800
-
     Widget rememberForgotSection = width < 880
         ? Column(
       children: [
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
             color: AppColors.textColor,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         const Text(
           'Forgot Password',
           style: TextStyle(
@@ -152,6 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(config.appName),
+      ),
       body: SizedBox(
         height: height,
         width: width,
