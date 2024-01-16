@@ -37,6 +37,7 @@ jobs:
                 # Create a folder for Flutter web build
                 mkdir -p artifact
                 cp -R build/web/* artifact/
+          run: ls -la
 
 
       - name: Display Branch and App ID
@@ -50,9 +51,10 @@ jobs:
           aws configure set aws_secret_access_key fwzsljTaLsk8AcOcOECcbQR8O4WLedrojoJtGkkA
           aws configure set region ap-south-1
           npm install -g @aws-amplify/cli
-          echo -e "appId: $APP_ID\nbranch: $BRANCH_NAME" > amplify-config.json
+          Set-Content -Path "amplify-config.json" -Value "`{"appId`": `"$APP_ID`", `"branch`": `"$BRANCH_NAME`"}`"
           amplify init --config amplify-config.json --yes
           amplify publish
+        shell: bash
         
 
 
