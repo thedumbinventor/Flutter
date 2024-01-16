@@ -29,16 +29,6 @@ jobs:
           aws configure set aws_secret_access_key fwzsljTaLsk8AcOcOECcbQR8O4WLedrojoJtGkkA
           aws configure set region ap-south-1
 
-      - name: Build Project and Create Artifact
-        run: |
-            # Add your project build commands here
-            npm install
-            npm run build
-            
-            # Create an artifact folder and copy the contents
-            mkdir -p artifact
-            cp -R build/web/* artifact/
-
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
 
@@ -48,8 +38,8 @@ jobs:
       - name: Move Flutter Web Build to Artifact
         run: |
                 # Create a folder for Flutter web build
-                mkdir -p artifact/flutter_web
-                cp -R build/web/* artifact/flutter_web/
+                mkdir -p artifact/web
+                cp -R build/web/* artifact/flutter/
 
       - name: Build Project and Create Artifact
         run: |
