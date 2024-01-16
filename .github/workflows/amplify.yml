@@ -16,7 +16,7 @@ jobs:
         with:
           channel: "stable"
 
-      - name: 🌍 Enable Web
+      - name: 🌍 Enable Webs
         run: flutter config --enable-web
 
       - name: 📦 Get packages
