@@ -54,7 +54,7 @@ jobs:
           Set-Content -Path "amplify-config.json" -Value "`{"appId`": `"$APP_ID`", `"branch`": `"$BRANCH_NAME`"}`"
           amplify init --config amplify-config.json --yes
           amplify publish
-        shell: bash
+        
         
 
 
