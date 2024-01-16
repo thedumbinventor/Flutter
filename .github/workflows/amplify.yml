@@ -1,38 +1,46 @@
-name: On Website Deploy
-"on":
+on:
   push:
-    # (1)
     branches:
-      - "master"
+      - master
+
 jobs:
-  build_and_deploy_web:
-    name: Build & Deploy Flutter to Webs
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: windows-latest
+
+    env:
+      BRANCH_NAME: master
+      APP_ID: d19yevjv3ahi39  # Replace with your actual Amplify App ID
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Node.js and Install Dependencies
+        uses: actions/setup-node@v2
         with:
-          channel: "stable"
+          node-version: '14'
 
-      - name: Enable Webs
-        run: flutter config --enable-web
+      - name: Install Amplify CLI
+        run: npm install -g @aws-amplify/cli@4.55.2
 
-      - name: Get packages
-        run: flutter pub get
-
-      - name: Build Web Application
-        run: flutter build web --release -t lib/main_prod.dart
-
-      # (3)
-      - name: Make copy of artifacts
+      - name: Configure AWS credentials
         run: |
-          chmod u+x "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
-          bash "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
-      # (4)
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Commit the artifacts.
+          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
+          aws configure set aws_secret_access_key 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
+          aws configure set region ap-south-1
 
+      - name: Display Branch and App ID
+        run: |
+          echo "Branch Name: master"
+          echo "Amplify App ID: d19yevjv3ahi39"
 
+      - name: Deploy to Amplify
+        run: |
+            # Navigate to the build/web directory
+            cd build/web
 
+      - name: Amplify Push
+        run: amplify push --yes
+
+      - name: Amplify Publish
+        run: amplify publish --yes
