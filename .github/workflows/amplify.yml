@@ -31,7 +31,7 @@ jobs:
         run: flutter pub get
 
 
-      - name: Build Flutter Web --releases
+      - name: Build Flutter Web --releasess
         run: flutter build web  --release -t lib/main_prod.dart
 
   deploy:
