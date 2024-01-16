@@ -21,7 +21,7 @@ jobs:
           node-version: '14'
 
       - name: Install Amplify CLI
-        run: npm install -g @aws-amplify/cli@4.55.2
+        run: npm i aws-amplify
 
       - name: Configure AWS credentials
         run: |
