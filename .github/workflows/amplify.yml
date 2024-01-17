@@ -1,14 +1,14 @@
 on:
   push:
     branches:
-      - test
+      - master
 
 jobs:
   deploy:
     runs-on: windows-latest
 
     env:
-      BRANCH_NAME: test
+      BRANCH_NAME: master
       APP_ID: d19yevjv3ahi39  # Replace with your actual Amplify App ID
 
     steps:
