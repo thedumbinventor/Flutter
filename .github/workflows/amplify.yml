@@ -37,7 +37,8 @@ jobs:
                 # Create a folder for Flutter web builds
                 mkdir -p artifact
                 cp -R build/web/* artifact/
-                ls ../artifact/
+                ls ../build/
+                ls ../build/web/
 
 
       - name: Display Branch and App IDss
