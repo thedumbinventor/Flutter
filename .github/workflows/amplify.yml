@@ -20,7 +20,7 @@ jobs:
         run: flutter pub get
 
       - name: Build release APK
-        run: flutter build web --release -t lib/main_dev.dart
+        run: flutter build web --release -t lib/main.dart
 
       - name: Create artifact directory
         run: mkdir artifact

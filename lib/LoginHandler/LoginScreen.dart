@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var config = AppConfig.of(context);
+    // var config = AppConfig.of(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -152,9 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(config.appName),
-      ),
+      // appBar: AppBar(
+      //   title: Text(config.appName),
+      // ),
       body: SizedBox(
         height: height,
         width: width,

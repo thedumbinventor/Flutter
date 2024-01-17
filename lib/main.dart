@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 import 'LoginHandler/LoginScreen.dart';
-import 'app_config.dart';
+// import 'app_config.dart';
 
 
 class MyApp extends StatelessWidget {
@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
 }
 
 void main() {
-  var configuredApp = AppConfig(
-    appName: 'Build flavors DEV',
-    flavorName: 'development',
-    // apiBaseUrl: 'https://dev-api.example.com/',
-    child: MyApp(),
-  );
+  // var configuredApp = AppConfig(
+  //   appName: 'Build flavors DEV',
+  //   flavorName: 'development',
+  //   // apiBaseUrl: 'https://dev-api.example.com/',
+    runApp(const MyApp());
+  // );
 
-  runApp(configuredApp);
+  // runApp(configuredApp);
 }
