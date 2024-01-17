@@ -30,3 +30,6 @@ jobs:
 
       - name: List contents of artifact directory
         run: ls artifact/
+
+      - name: List contents of web folder
+        run: ls build/web/
