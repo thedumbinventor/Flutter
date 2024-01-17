@@ -1,63 +1,32 @@
+name: Deploy to AWS Amplify
+
 on:
   push:
     branches:
       - master
 
 jobs:
-  deploy:
+  build:
     runs-on: windows-latest
 
-    env:
-      BRANCH_NAME: master
-      APP_ID: d19yevjv3ahi39  # Replace with your actual Amplify App ID
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Setup Node.js and Install Dependencies
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-#      - name: Configure AWS credentials
-#        run: |
-#          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
-#          aws configure set aws_secret_access_key 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
-#          aws configure set region ap-south-1
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
 
-      - name: Build Flutter Web
-        run: flutter build web --release -t lib/main_prod.dart
+      - name: Install dependencies
+        run: flutter pub get
 
-      - name: Move Flutter Web Build to Artifact
-        run: |
-                # Create a folder for Flutter web build
-                mkdir -p artifact
-                cp -R build/web/* artifact/
-#                ls -la artifact/
+      - name: Build release APK
+        run: flutter build web --release -t lib/main_dev.dart
 
+      - name: Create artifact directory
+        run: mkdir artifact
 
-      - name: Display Branch and App ID
-        run: |
-          echo "Branch Name: master"
-          echo "Amplify App ID: d19yevjv3ahi39"
+      - name: Copy web folder to artifact
+        run: cp -r build/web/. artifact/
 
-      - name: Install Amplify CLI
-        run: |
-          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
-          aws configure set aws_secret_access_key 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
-          aws configure set region ap-south-1
-          npm install -g @aws-amplify/cli
-          $content = '{ "appId": "' + $env:APP_ID + '", "branch": "' + $env:BRANCH_NAME + '" }'
-          $content | Out-File -FilePath amplify-config.json
-          amplify init --config amplify-config.json --yes
-          amplify publish
-        
-        
-
-
-#      - name: Amplify Push
-#        run: amplify publish --appId d19yevjv3ahi39 --branch-name master --source artifact/
+      - name: List contents of artifact directory
+        run: ls artifact/
