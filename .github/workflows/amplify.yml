@@ -33,3 +33,12 @@ jobs:
 
       - name: List contents of web folder
         run: ls build/web/
+
+      - name: Zip web folder
+        run: |
+            cd build
+            zip -r web.zip web
+            mv web.zip ../artifact/
+
+      - name: List contents of artifact directory after zipping
+        run: ls artifact/
