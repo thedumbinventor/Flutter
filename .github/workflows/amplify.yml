@@ -47,4 +47,4 @@ jobs:
 
       - name: Deploy to AWS Amplify
         run: |
-          aws amplify start-deployment --app-id d3iqc5dpxs0nxf --branch-name master --source-dir artifact/
+          aws amplify start-deployment --app-id d28cj0vgqeqf5l --branch-name master --source-dir artifact/
