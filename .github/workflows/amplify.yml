@@ -1,4 +1,4 @@
-name: Flutter Release
+name: Deploy to AWS Amplify
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -30,3 +30,28 @@ jobs:
 
       - name: List contents of artifact directory
         run: ls artifact/
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - name: Install Amplify CLI
+        run: |
+          choco install nodejs-lts
+          npm install -g @aws-amplify/cli
+
+      - name: Configure Amplify CLI
+        run: |
+          amplify configure --appId d3iqc5dpxs0nxf
+          amplify configure --branch master
+
+      - name: Deploy to AWS Amplify
+        uses: aws-amplify/amplify-action@v1
+        with:
+          amplifyAppId: ${{ secrets.AMPLIFY_APP_ID }}
+          amplifyBranch: master
+          dir: artifact/web
+        env:
+          AWS_ACCESS_KEY_ID: AKIAQ3E6XAIHSWGF345T
+          AWS_SECRET_ACCESS_KEY: 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
+          AWS_REGION: ap-south-1
