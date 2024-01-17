@@ -35,7 +35,7 @@ jobs:
         run: ls build/web/
 
       - name: Zip web folder
-        run: Compress-Archive -Path 'build/web' -DestinationPath 'artifact/web.zip'
+        run: Compress-Archive -Path 'build/web/' -DestinationPath 'artifact/web.zip'
 
       - name: List contents of artifact directory after zipping
         run: ls artifact/
