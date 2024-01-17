@@ -40,7 +40,7 @@ jobs:
 #                ls -la artifact/
 
 
-      - name: Display Branch and App IDs
+      - name: Display Branch and App IDss
         run: |
           echo "Branch Name: master"
           echo "Amplify App ID: d19yevjv3ahi39"
