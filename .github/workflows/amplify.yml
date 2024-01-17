@@ -34,7 +34,7 @@ jobs:
 
       - name: Move Flutter Web Build to Artifact
         run: |
-                # Create a folder for Flutter web build
+                # Create a folder for Flutter web builds
                 mkdir -p artifact
                 cp -R build/web/* artifact/
 #                ls -la artifact/
