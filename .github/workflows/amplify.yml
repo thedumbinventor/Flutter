@@ -29,17 +29,13 @@ jobs:
         run: cp -r build/web/. artifact/
 
       - name: List contents of artifact directory
-        run: ls artifact/
+        run: ls -R artifact/
 
       - name: List contents of web folder
-        run: ls build/web/
+        run: ls -R build/web/
 
       - name: Zip web folder
-        run: Compress-Archive -Path 'build/web/' -DestinationPath 'artifact/web.zip'
-
-      - name: List contents of artifact directory after zipping
-        run: ls artifact/
-
+        run: Compress-Archive -Path 'build/web' -DestinationPath 'artifact/web.zip'
 
       - name: Upload web.zip as an artifact
         uses: actions/upload-artifact@v2
