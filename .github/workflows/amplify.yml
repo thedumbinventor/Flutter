@@ -9,36 +9,50 @@ jobs:
   build:
     runs-on: windows-latest
 
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Flutter
+#        uses: subosito/flutter-action@v2
+#
+#      - name: Install dependencies
+#        run: flutter pub get
+#
+#      - name: Build release APK
+#        run: flutter build web --release -t lib/main.dart
+#
+#      - name: Create artifact directory
+#        run: mkdir artifact
+#
+#      - name: Copy web folder to artifact
+#        run: cp -r build/web/. artifact/
+#
+#      - name: List contents of artifact directory
+#        run: ls -R artifact/
+#
+#      - name: List contents of web folder
+#        run: ls -R build/web/
+#
+#      - name: Zip web folder
+#        run: Compress-Archive -Path 'build/web/*' -DestinationPath 'artifact/admin.zip'
+
+#      - name: Upload web.zip as an artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: web-artifact
+#          path: artifact/hello.zip
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+     - name: Configure AWS Credentials
+       uses: aws-actions/configure-aws-credentials@v2
+       with:
+        aws-access-key-id: AKIA5QVGJAZVSG575SOD
+        aws-secret-access-key: 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
+        aws-region: ap-south-1
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+     - name: List Zip Files in S3 Bucket
+       run: |
+         aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip'
 
-      - name: Install dependencies
-        run: flutter pub get
 
-      - name: Build release APK
-        run: flutter build web --release -t lib/main.dart
-
-      - name: Create artifact directory
-        run: mkdir artifact
-
-      - name: Copy web folder to artifact
-        run: cp -r build/web/. artifact/
-
-      - name: List contents of artifact directory
-        run: ls -R artifact/
-
-      - name: List contents of web folder
-        run: ls -R build/web/
-
-      - name: Zip web folder
-        run: Compress-Archive -Path 'build/web/*' -DestinationPath 'artifact/hello.zip'
-
-      - name: Upload web.zip as an artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-artifact
-          path: artifact/hello.zip
