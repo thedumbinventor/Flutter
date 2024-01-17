@@ -30,7 +30,7 @@ jobs:
         uses: subosito/flutter-action@v2
 
       - name: Build Flutter Web
-        run: flutter build web --release -t lib/main_prod.dart
+        run: flutter build web --release -t lib/main_dev.dart
 
       - name: Move Flutter Web Build to Artifact
         run: |
@@ -60,11 +60,4 @@ jobs:
 
 
 #      - name: Amplify Pushs
-#        run: amplify publish --appId d19yevjv3ahi39 --branch-name master --source art
-
-
-
-
-
-
-
+#        run: amplify publish --appId d19yevjv3ahi39 --branch-name master --source artifact/
