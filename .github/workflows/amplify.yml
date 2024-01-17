@@ -35,24 +35,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Install Amplify CLI
+      - name: Install AWS CLI
         run: |
-          sudo apt-get install -y nodejs
-          sudo npm install -g @aws-amplify/cli
-          
+          sudo apt-get install -y awscli
 
-      - name: Configure Amplify CLI
+      - name: Configure AWS CLI
         run: |
-          amplify configure --appId d3iqc5dpxs0nxf
-          amplify configure --branch master
+          aws configure set aws_access_key_id AKIAQ3E6XAIHSWGF345T
+          aws configure set aws_secret_access_key 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
+          aws configure set region ap-south-1
 
       - name: Deploy to AWS Amplify
-        uses: Flutter-artifacts/web/amplify-action@v1
-        with:
-          amplifyAppId: d3iqc5dpxs0nxf
-          amplifyBranch: master
-          dir: artifact/web
-        env:
-          AWS_ACCESS_KEY_ID: AKIAQ3E6XAIHSWGF345T
-          AWS_SECRET_ACCESS_KEY: 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
-          AWS_REGION: ap-south-1
+        run: |
+          aws amplify start-deployment --app-id d3iqc5dpxs0nxf --branch-name master --source-dir artifact/
