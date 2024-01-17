@@ -40,23 +40,18 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-        aws-access-key-id: AKIA5QVGJAZVSG575SOD
-        aws-secret-access-key: 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
-        aws-region: ap-south-1
+          aws-access-key-id: AKIA5QVGJAZVSG575SOD
+          aws-secret-access-key: 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
+          aws-region: ap-south-1
 
       - name: List Zip Files in S3 Bucket
-        run: |
-         aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip'
+        run: aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip' || true
 
       - name: Delete All Files in S3 Bucket
-        run: |
-           aws s3 rm s3://amplify-web-sunfox/ --recursive
+        run: aws s3 rm s3://amplify-web-sunfox/ --recursive || true
 
       - name: Upload hello.zip to S3 Bucket
         run: aws s3 cp artifact/hello.zip s3://amplify-web-sunfox/hello.zip
 
       - name: List Zip Files in S3 Bucket
-        run: |
-         aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip'
-
-
+        run: aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip' || true
