@@ -1,38 +1,41 @@
-name: On Website Deploy
-"on":
-  push:
-    # (1)
-    branches:
-      - "master"
-jobs:
-  build_and_deploy_web:
-    name: Build & Deploy Flutter to Webs
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-
-      - name: Enable Webs
-        run: flutter config --enable-web
-
-      - name: Get packages
-        run: flutter pub get
-
-      - name: Build Web Application
-        run: flutter build web --release -t lib/main_prod.dart
-
-      # (3)
-      - name: Make copy of artifacts
-        run: |
-          chmod u+x "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
-          bash "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
-      # (4)
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Commit the artifacts.
-
-
-
+#name: On Website Deploy
+#"on":
+#  push:
+#    # (1)
+#    branches:
+#      - "master"
+#jobs:
+#  build_and_deploy_web:
+#    name: Build & Deploy Flutter to Webs
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: subosito/flutter-action@v2
+#        with:
+#          channel: "stable"
+#
+#      - name: Enable Webs
+#        run: flutter config --enable-web
+#
+#      - name: Get packages
+#        run: flutter pub get
+#
+#      - name: Build Web Application
+#        run: flutter build web --release -t lib/main_prod.dart
+#
+#      # (3)
+#      - name: Make copy of artifacts
+#        run: |
+#          chmod u+x "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
+#          bash "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
+#      # (4)
+#      - uses: stefanzweifel/git-auto-commit-action@v4
+#        with:
+#          commit_message: Commit the artifacts.
+#
+#
+#      - name: Deploy to AWS Amplify
+#        run: |
+#          aws amplify start-deployment --app-id d28cj0vgqeqf5l --branch-name master --source-dir artifact/web
+#
