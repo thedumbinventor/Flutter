@@ -32,13 +32,14 @@ jobs:
         run: ls artifact/
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Install Amplify CLI
         run: |
-          choco install nodejs-lts
-          npm install -g @aws-amplify/cli
+          sudo apt-get install -y nodejs
+          sudo npm install -g @aws-amplify/cli
+          
 
       - name: Configure Amplify CLI
         run: |
