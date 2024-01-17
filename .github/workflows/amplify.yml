@@ -47,7 +47,7 @@ jobs:
           amplify configure --branch master
 
       - name: Deploy to AWS Amplify
-        uses: aws-amplify/amplify-action@v1
+        uses: Flutter-artifacts/web/amplify-action@v1
         with:
           amplifyAppId: d3iqc5dpxs0nxf
           amplifyBranch: master
