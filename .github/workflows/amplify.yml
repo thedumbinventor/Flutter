@@ -39,3 +39,10 @@ jobs:
 
       - name: List contents of artifact directory after zipping
         run: ls artifact/
+
+
+      - name: Upload web.zip as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web-artifact
+          path: artifact/web.zip
