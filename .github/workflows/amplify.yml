@@ -55,4 +55,12 @@ jobs:
        run: |
          aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip'
 
+     - name: Delete All Files in S3 Bucket
+       run: |
+           aws s3 rm s3://amplify-web-sunfox/ --recursive
+
+     - name: List Zip Files in S3 Bucket
+       run: |
+         aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip'
+
 
