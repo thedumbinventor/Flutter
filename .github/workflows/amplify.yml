@@ -53,5 +53,5 @@ jobs:
       - name: Upload hello.zip to S3 Bucket
         run: aws s3 cp artifact/hello.zip s3://amplify-web-sunfox/hello.zip
 
-      - name: List Zip Files in S3 Bucket
+      - name: List Zip Files in S3 Buckets
         run: aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip' || true
