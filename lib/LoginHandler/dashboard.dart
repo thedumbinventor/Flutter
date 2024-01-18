@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qmsadminflutter/LoginHandler/LoginScreen.dart';
 
 void main() {
   runApp(const LoginScreen());
 }
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+class DashboardController extends GetxController {
 
-  @override
-  _DashboardState createState() => _DashboardState();
+  RxString backgroundText = 'Dashboard'.obs;
 }
 
-class _DashboardState extends State<Dashboard> {
+class Dashboard extends StatelessWidget {
+  final DashboardController controller = Get.put(DashboardController());
+  //  Obx(() => Text(controller.backgroundText.value)),
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title:Text('hello'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -68,13 +69,11 @@ class _DashboardState extends State<Dashboard> {
               onTap: () {
                 // Handle item 5 tap
                 Navigator.pop(context);
+                controller.backgroundText.value = 'Item 5';
               },
             ),
           ],
         ),
-      ),
-      body: const Center(
-        child: Text('Welcome to the Dashboard!'),
       ),
     );
   }

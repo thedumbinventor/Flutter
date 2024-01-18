@@ -40,8 +40,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: AKIA5QVGJAZVSG575SOD
-          aws-secret-access-key: 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
+          aws-access-key-id: AKIA5QVGJAZV243EIIQ3
+          aws-secret-access-key: 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
           aws-region: ap-south-1
 
       - name: List Zip Files in S3 Bucket
