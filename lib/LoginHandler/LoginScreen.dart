@@ -264,9 +264,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: height * 0.07,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (_emailController.text.isNotEmpty &&
-                                    _passwordController.text.isNotEmpty &&
-                                    validateEmail(_emailController.text) == null) {
+                                // if (_emailController.text.isNotEmpty &&
+                                //     _passwordController.text.isNotEmpty &&
+                                //     validateEmail(_emailController.text) == null)
+                                {
                                   // Email is not empty and valid
                                   // Perform your login logic here
                                   Navigator.push(
@@ -275,12 +276,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => Dashboard(),
                                     ),
                                   );
-                                } else {
-                                  // Show an error message or handle the invalid input
-                                  showToast('Invalid input. Please check your email.');
-                                  print(
-                                      'Invalid input. Please check your email.');
                                 }
+                                // else {
+                                //   // Show an error message or handle the invalid input
+                                //   showToast('Invalid input. Please check your email.');
+                                //   print(
+                                //       'Invalid input. Please check your email.');
+                                // }
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: AppColors.buttonColor,
