@@ -1,57 +1,43 @@
-name: Deploy to AWS Amplify
-
+name: Deployment to S3 Bucket
 on:
   push:
     branches:
-      - master
-
+      - develop
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-      - name: Checkout code
+      - name: Set Current Datetime
+        id: set_datetime
+        run: echo "::set-output name=DATETIME::$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+
+      - name: Echoing var
+        run: echo "flutter_web_${{ steps.set_datetime.outputs.DATETIME }}"
+
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build release APK
-        run: flutter build web --release -t lib/main.dart
-
-      - name: Create artifact directory
-        run: mkdir artifact
-
-      - name: Copy web folder to artifact
-        run: cp -r build/web/. artifact/
-
-      - name: List contents of artifact directory
-        run: ls -R artifact/
-
-      - name: List contents of web folder
-        run: ls -R build/web/
+      - name: Build Flutter Web
+        run: flutter build web
 
       - name: Zip web folder
-        run: Compress-Archive -Path 'build/web/*' -DestinationPath 'artifact/hello.zip'
+        run: Compress-Archive -Path 'build/web/*' -DestinationPath "abcd.zip"
 
-      - name: Configure AWS Credentials
+      - name: Upload to AWS S3
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: AKIA5QVGJAZV243EIIQ3
-          aws-secret-access-key: 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
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: List Zip Files in S3 Bucket
-        run: aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip' || true
+      - name: Upload abcd.zip to S3 Buckets
+        run: aws s3 cp abcd.zip s3://amplify-development/abcd.zip
 
-      - name: Delete All Files in S3 Bucket
-        run: aws s3 rm s3://amplify-web-sunfox/ --recursive || true
-
-      - name: Upload hello.zip to S3 Bucket
-        run: aws s3 cp artifact/hello.zip s3://amplify-web-sunfox/hello.zip
-
-      - name: List Zip Files in S3 Buckets
-        run: aws s3 ls s3://amplify-web-sunfox/ --recursive | grep '.zip' || true
+      - name: Deploy to AWS Amplify
+        run: aws amplify start-deployment --app-id d1zb6sew1l51g3 --branch-name prod --source-url s3://amplify-development/abcd.zip
