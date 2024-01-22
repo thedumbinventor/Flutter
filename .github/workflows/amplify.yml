@@ -2,12 +2,12 @@ name: Deployment to S3 Bucket
 on:
   push:
     branches:
-      - develop
+      - master
 jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Set Current Datetime
+      - name: Set Current Datetimes
         id: set_datetime
         run: echo "::set-output name=DATETIME::$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
