@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'LoginHandler/LoginScreen.dart';
 
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
